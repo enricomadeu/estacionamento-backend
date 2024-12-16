@@ -12,7 +12,7 @@ BEGIN
     FOR rec IN
         SELECT id, placa, data_pagamento, data_saida, valor_a_pagar, "estacionamentoId"
         FROM "EntradaSaida"
-        WHERE pago = true AND data_saida IS NOT NULL AND data_pagamento IS NOT NULL
+        WHERE pago = true AND data_saida IS NULL AND data_pagamento IS NOT NULL
     LOOP
         DATA_TOLERANCIA := rec.data_pagamento + interval '15 minutes';
         IF now() > DATA_TOLERANCIA THEN
