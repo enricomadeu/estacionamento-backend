@@ -58,6 +58,9 @@ export const EntradaSaidaRoutes = async (server: FastifyInstance) => {
 				estacionamentoId: estacionamentoExiste.id,
 				data_pagamento: {
 					gte: oneMonthAgo
+				},
+				placa: {
+					not: placa
 				}
 			}
 		});
