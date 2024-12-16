@@ -12,7 +12,7 @@ export const MensalidadeRoutes = async (server: FastifyInstance) => {
 	server.get("/placa/:placa", async (request) => {
 		const { placa } = request.params as { placa: string };
 
-		return await prisma.mensalidade.findFirst({
+		return await prisma.mensalidade.findMany({
 			where: {
 				placa,
 			},
@@ -33,6 +33,9 @@ export const MensalidadeRoutes = async (server: FastifyInstance) => {
 				estacionamento: {
 					id: parseInt(id),
 				},
+			},
+			include: {
+				estacionamento: true,
 			},
 			orderBy: {
 				data_pagamento: "desc",
