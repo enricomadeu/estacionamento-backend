@@ -50,8 +50,20 @@ export const EntradaSaidaRoutes = async (server: FastifyInstance) => {
 			},
 		});
 
+		const oneMonthAgo = new Date();
+		oneMonthAgo.setMonth(oneMonthAgo.getMonth() - 1);
+
+		const registroMensalidades = await prisma.mensalidade.count({
+			where: {
+				estacionamentoId: estacionamentoExiste.id,
+				data_pagamento: {
+					gte: oneMonthAgo
+				}
+			}
+		});
+
 		const estacionamentoLotado =
-			numeroVeiculosEstacionados >= estacionamentoExiste.vagas;
+			(numeroVeiculosEstacionados + registroMensalidades) >= estacionamentoExiste.vagas;
 
 		if (estacionamentoLotado) {
 			return reply.status(400).send("Estacionamento lotado");
@@ -69,7 +81,7 @@ export const EntradaSaidaRoutes = async (server: FastifyInstance) => {
 		const mensalidadeAtiva =
 			(mensalista &&
 				new Date().getTime() - new Date(mensalista.data_pagamento).getTime() <
-					30 * 24 * 60 * 60 * 1000) ||
+				30 * 24 * 60 * 60 * 1000) ||
 			false;
 
 		await prisma.entradaSaida.create({

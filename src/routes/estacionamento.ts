@@ -16,7 +16,7 @@ export const EstacionamentoRoutes = async (server: FastifyInstance) => {
 			telefone: z.string(),
 			vagas: z.number(),
 			valor_hora: z.number(),
-			valor_mensalidade: z.number(),
+			valor_mensalidade: z.number().optional(),
 		});
 
 		const { nome, endereco, telefone, vagas, valor_hora, valor_mensalidade } =
@@ -54,7 +54,7 @@ export const EstacionamentoRoutes = async (server: FastifyInstance) => {
 			telefone: z.string(),
 			vagas: z.number(),
 			valor_hora: z.number(),
-			valor_mensalidade: z.number(),
+			valor_mensalidade: z.number().optional(),
 		});
 
 		const { nome, endereco, telefone, vagas, valor_hora, valor_mensalidade } =

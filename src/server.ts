@@ -8,6 +8,7 @@ import { FuncionarioRoutes } from "./routes/funcionario";
 import { CargoRoutes } from "./routes/cargo";
 import { CronJob } from "cron";
 import { MensalidadeRoutes } from "./routes/mensalidade";
+require("dotenv").config()
 
 const app = fastify();
 const prisma = new PrismaClient();
